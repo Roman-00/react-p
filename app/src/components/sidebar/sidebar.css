@@ -1,0 +1,30 @@
+.sidebar {
+    border: 1px solid #bfc4cd;
+}
+
+.sidebar__head {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-bottom: 1px solid #bfc4cd;
+}
+
+.sidebar__content ul {
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.sidebar__content ul li {
+    display: flex;
+    justify-content: flex-start;
+
+    padding-left: 25%;
+}
+
+.sidebar__content ul li img {
+    width: 20px;
+    height: 15px;
+}
