@@ -34,7 +34,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <RateContext.Provider>
+      <RateContext.Provider value = {{state: this.state}} >
         <Layout/>
       </RateContext.Provider>
     )
