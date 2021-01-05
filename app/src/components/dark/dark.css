@@ -5,8 +5,14 @@
     left: 0;
     right: 0;
 
+    display: none;
+
     background: #1e1e1e;
     opacity: 0.6;
 
     z-index: 7;
+}
+
+.show__dark {
+    display: block;
 }

@@ -80,9 +80,25 @@ class App extends React.Component {
         date: '',
         course: ''
       },
-      sampleList: ''
+      sampleList: '',
+
+      // show/hide modal register/login
+
+      showModal: false
     };
   }
+
+  /* Show/Hide Modal Function */
+
+  modalShowHandler = () => {
+    this.setState({showModal: true})
+  }
+
+  modalHideHandler = () => {
+    this.setState({showModal: false})
+  }
+
+  /* Show/Hide Modal Function */
 
   /* Render Inputs onChange validateControll */
 
@@ -265,8 +281,10 @@ class App extends React.Component {
                                       sampleDateHandler: this.sampleDateHandler,
                                       dataWrite: this.dataWrite,
                                       sampleRemove: this.sampleRemove,
-                                      renderInputs: this.renderInputs}} >
-        <Dark/>
+                                      renderInputs: this.renderInputs,
+                                      modalShowHandler: this.modalShowHandler,
+                                      modalHideHandler: this.modalHideHandler}} >
+        <Dark showModal = {this.state.showModal} modalHideHandler = {this.modalHideHandler}/>
         <Modal/>
         <Layout/>
       </RateContext.Provider>

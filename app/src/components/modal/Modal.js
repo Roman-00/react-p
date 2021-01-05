@@ -1,27 +1,48 @@
-import React from 'react';
-//import { Login } from '../login/Login';
+import React, { useState, useContext } from 'react';
+import { RateContext } from '../../context/RateContext';
+import { Login } from '../login/Login';
 import { Registr } from '../registr/Registr';
 import './modal.css';
 
 export const Modal = () => {
+
+    const {state, modalHideHandler} = useContext(RateContext);
+
+    const [value, setValue] = useState('login');
+    const links = [{name: 'Вход', id: 'login'}, {name: 'Регистрация', id: 'register'}];
+    const cls = ['modal'];
+
+    const windowHandler = (id) => {
+        setValue(id);
+    };
+
+    if(state.showModal) {
+        cls.push('modal__show');
+    }
+
     return(
-        <div className="modal">
+        <div className={cls.join(' ')}>
             <>
                 <div className="modal__head">
                     <ul>
-                        <li>
-                            Вход
-                        </li>
-                        <li>
-                            Регистрация
-                        </li>
+                        {links.map((item, i)=> {
+                            return(
+                                <li style={{
+                                    fontWeight: item.id === value ? 'bold' : 'normal',
+                                    cursor: 'pointer',
+                                    transition: '0.3s ease-in'
+                                }} key = {item.name} onClick={() => windowHandler(item.id)}>{item.name}</li>
+                            )
+                        })}
                     </ul>
 
-                    <i className="fa fa-times" aria-hidden = "true"/>
+                    <i className="fa fa-times" aria-hidden = "true" onClick = {modalHideHandler}/>
                 </div>
             </>
-            {/*<Login/>*/}
-            <Registr/>
+
+            {value === 'register' ? <Registr/> : <Login/>}
+            {/*<Login/>
+            <Registr/>*/}
         </div>
     )
 };
