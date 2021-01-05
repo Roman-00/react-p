@@ -6,7 +6,7 @@ import './login.css';
 
 export const Login = () => {
 
-    const {renderInputs} = useContext(RateContext);
+    const {renderInputs, state, loginHandler} = useContext(RateContext);
 
     return(
         <>
@@ -14,7 +14,7 @@ export const Login = () => {
                 {renderInputs()}
             </div>
             <div className="modal__btn">
-                <Button text="Войти"/>
+                <Button text="Войти" disabled = {!state.isFormValid} click= {loginHandler}/>
             </div>
         </>
     )

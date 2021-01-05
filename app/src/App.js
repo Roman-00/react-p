@@ -28,6 +28,9 @@ class App extends React.Component {
 
     this.state = {
 
+      auth: false,
+      error: '',
+
       formControls: {
         email: { 
           value: '',
@@ -84,9 +87,69 @@ class App extends React.Component {
 
       // show/hide modal register/login
 
-      showModal: false
+      showModal: false,
+      isFormValid: false
     };
   }
+
+  /* Login/Register Handler method */
+  loginHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    };
+    
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAiL_7xA5qsK42syQoVBubeTbx1I_Smxr0',authData)
+      
+      if(response.data.idToken){
+
+        const formControls = {...this.state.formControls}
+        formControls.email.value = ''
+        formControls.password.value = ''
+
+        this.setState({auth: true,
+                       showModal: false,
+                       error: '',
+                       formControls: formControls
+        });
+      } 
+    } catch(e) {
+      console.log(e);
+      this.setState({error: 'Ошибка'});
+    }
+  }
+
+  registerHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true
+    };
+    
+    try {
+      const response = await axios.post('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAiL_7xA5qsK42syQoVBubeTbx1I_Smxr0',authData)
+
+      if(response.data.idToken){
+
+        const formControls = {...this.state.formControls}
+        formControls.email.value = ''
+        formControls.password.value = ''
+
+        this.setState({auth: true,
+                       showModal: false,
+                       error: '',
+                       formControls: formControls
+        });
+      }
+    } catch(e) {
+      console.log(e);
+      this.setState({error: 'Ошибка'});
+    }
+  };
+
+  /* Login/Register Handler method */
 
   /* Show/Hide Modal Function */
 
@@ -137,8 +200,15 @@ class App extends React.Component {
     control.valid = this.validateControl(control.value, control.validation);
 
     formControls[controlName] = control;
-    this.setState({formControls});
-  }
+
+    let isFormValid = true;
+
+    Object.keys(formControls).forEach(name => {
+      isFormValid = formControls[name].valid && isFormValid;
+    });
+
+    this.setState({formControls, isFormValid});
+  };
 
   /* Render Inputs onChange */
 
@@ -283,7 +353,9 @@ class App extends React.Component {
                                       sampleRemove: this.sampleRemove,
                                       renderInputs: this.renderInputs,
                                       modalShowHandler: this.modalShowHandler,
-                                      modalHideHandler: this.modalHideHandler}} >
+                                      modalHideHandler: this.modalHideHandler,
+                                      loginHandler: this.loginHandler,
+                                      registerHandler: this.registerHandler}} >
         <Dark showModal = {this.state.showModal} modalHideHandler = {this.modalHideHandler}/>
         <Modal/>
         <Layout/>
