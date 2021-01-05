@@ -1,6 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import './App.css';
 import Layout from './components/layout/Layout';
+
 import { RateContext } from './context/RateContext';
 
 import CHF from './image/CHF.png';
@@ -10,6 +12,14 @@ import GBP from './image/GBP.png';
 import JPY from './image/JPY.png';
 import RUB from './image/RUB.png';
 import USD from './image/USD.png';
+import { Dark } from './components/dark/Dark';
+import { Modal } from './components/modal/Modal';
+import { Input } from './components/input/Input';
+
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
 class App extends React.Component {
 
@@ -17,6 +27,34 @@ class App extends React.Component {
     super(props);
 
     this.state = {
+
+      formControls: {
+        email: { 
+          value: '',
+          type: 'email',
+          label: 'Email',
+          errorMessage: 'Введите корректный Email',
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            email: true
+          }
+        },
+        password: {
+          value: '',
+          type: 'password',
+          label: 'Пароль',
+          errorMessage: 'Введите корректный пароль',
+          valid: false,
+          touched: false,
+          validation: {
+            required: true,
+            minlength: 6
+          }
+        }
+      },
+
       base: 'USD',
       rate: '',
       date: '',
@@ -33,8 +71,131 @@ class App extends React.Component {
       inputValue: 100,
       currencyValue: 'USD',
       resault: null,
+
+      // sample state для работы компонента sample
+
+      sample: {
+        base: 'USD', 
+        base2: 'RUB', 
+        date: '',
+        course: ''
+      },
+      sampleList: ''
     };
   }
+
+  /* Render Inputs onChange validateControll */
+
+  validateControl(value, validation) {
+    if(!validation) {
+      return true;
+    }
+
+    let isValid = true;
+
+    if(validation.required) {
+      isValid = value.trim() !== '' && isValid;
+    }
+
+    if(validation.email) {
+      isValid = validateEmail(value) && isValid;
+    }
+
+    if(validation.minlength) {
+        isValid = value.length >= validation.minlength && isValid;
+    }
+
+    return isValid;
+  }
+
+  /* Render Inputs onChange validateControll */
+
+  /* Render Inputs onChange */
+
+  onChangeHandler = (event, controlName) => {
+    const formControls = {...this.state.formControls}
+    const control = {...formControls[controlName]};
+
+    control.value = event.target.value;
+    control.touched = true;
+    control.valid = this.validateControl(control.value, control.validation);
+
+    formControls[controlName] = control;
+    this.setState({formControls});
+  }
+
+  /* Render Inputs onChange */
+
+  /* Render Inputs */
+
+  renderInputs = () => {
+    return Object.keys(this.state.formControls).map((controlName, i)=>{
+      const control = this.state.formControls[controlName];
+
+      return(
+        <Input
+          key = {controlName + i}
+          type = {control.type}
+          value = {control.value}
+          valid = {control.valid}
+          touched = {control.touched}
+          label = {control.label}
+          errorMessage = {control.errorMessage}
+          shouldValidate = {true}
+          onChange = {(event)=> this.onChangeHandler(event, controlName)}
+        />
+      )
+    });
+  };
+
+  /* Render Inputs */
+
+  /* Sample <!-- getting started --> */
+  
+  baseHandler = (event) => {
+    this.setState({sample: {...this.state.sample, base: event.target.value}});
+  };
+
+  base2Handler = (event) => {
+    this.setState({sample: {...this.state.sample, base2: event.target.value}});
+  };
+
+  sampleDateHandler = (event) => {
+    this.setState({sample: {...this.state.sample, date: event.target.value}});
+  };
+
+  dataWrite = async () => {
+
+    await fetch(`https://api.exchangeratesapi.io/${ this.state.sample.date }?base=${ this.state.sample.base}`)
+    .then((response) => response.json()).then((response) =>{
+      this.setState({sample: {...this.state.sample, course: response.rates[this.state.sample.base2]}});
+    });
+    
+    await axios.post('https://react-p-7469d-default-rtdb.firebaseio.com/sample.json', this.state.sample)
+    .then((response) => {
+      return('');
+      //console.log(response);
+    });
+
+    await axios('https://react-p-7469d-default-rtdb.firebaseio.com/sample.json')
+    .then((response) => {
+      this.setState({sampleList: response.data});
+
+      //console.log(response);
+    });
+  };
+
+  sampleRemove = async (id) => {
+    let sampleList = {...this.state.sampleList};
+
+    delete sampleList[id];
+    this.setState({sampleList});
+
+    await axios.delete(`https://react-p-7469d-default-rtdb.firebaseio.com/sample/${id}.json`);
+  };
+  
+  /*Sample <!-- end of receipt -->*/
+
 
   inputValueHandler = (event) => {
     this.setState({inputValue: event.target.value,
@@ -62,7 +223,7 @@ class App extends React.Component {
       //console.log(this.state.resault);
   };
 
-  componentDidMount() {
+  componentDidMount(){
 
     fetch(`https://api.exchangeratesapi.io/latest?base=${this.state.base}`)
     .then((response)=> response.json()).then((response)=> {
@@ -81,6 +242,13 @@ class App extends React.Component {
         currency
       });
 
+      axios('https://react-p-7469d-default-rtdb.firebaseio.com/sample.json')
+      .then((response) => {
+        this.setState({sampleList: response.data});
+
+        //console.log(response);
+      });
+
     });
 
 
@@ -91,7 +259,15 @@ class App extends React.Component {
       <RateContext.Provider value = {{state: this.state, 
                                       inputValueHandler: this.inputValueHandler,
                                       currencyValueHandler: this.currencyValueHandler,
-                                      calculatorHandler: this.calculatorHandler}} >
+                                      calculatorHandler: this.calculatorHandler,
+                                      baseHandler: this.baseHandler,
+                                      base2Handler: this.base2Handler,
+                                      sampleDateHandler: this.sampleDateHandler,
+                                      dataWrite: this.dataWrite,
+                                      sampleRemove: this.sampleRemove,
+                                      renderInputs: this.renderInputs}} >
+        <Dark/>
+        <Modal/>
         <Layout/>
       </RateContext.Provider>
     )

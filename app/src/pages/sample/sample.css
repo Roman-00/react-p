@@ -1,0 +1,52 @@
+.sample {
+    min-height: 16vw;
+
+    border: 1px solid #bfc4cd;
+}
+
+.sample__container {
+    width: 90%;
+    
+    margin: 0 auto;
+    padding: 1vw 0;
+}
+
+.sample__head {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+
+    width: 70%;
+}
+
+.sample__resault {
+    margin: 2vw 0;
+}
+
+.sample__resault ul {
+    display: block;
+
+    margin: 0;
+    padding: 0;
+
+    list-style: none;
+}
+
+.sample__resault ul li {
+    display: block;
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr .3fr;
+
+    margin-bottom: 1vw;
+    padding: .5vw;
+
+    border: 1px solid #bfc4cd;
+}
+
+.sample__resault ul li img {
+    width: 20px;
+    height: 15px;
+}
+
+.sample__resault ul li button {
+    padding: .1vw;
+}
