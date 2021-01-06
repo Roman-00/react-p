@@ -29,6 +29,11 @@ export const Modal = () => {
                             return(
                                 <li style={{
                                     fontWeight: item.id === value ? 'bold' : 'normal',
+                                    background: item.id === value ? 'linear-gradient(270deg, #8743FF 0%, #4136F1 100%)' : 'transparent',
+                                    border: item.id === value ? 'none' : '2px solid #1750FF',
+                                    borderRadius: item.id === value ? '16px' : 'none',
+                                    boxShadow: item.id === value ? '0px 15px 30px rgba(20, 102, 204, 0.16)' : 'none',
+                                    color: item.id === value ? '#fff' : '#000',
                                     cursor: 'pointer',
                                     transition: '0.3s ease-in'
                                 }} key = {item.name} onClick={() => windowHandler(item.id)}>{item.name}</li>

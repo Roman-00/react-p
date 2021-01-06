@@ -17,7 +17,7 @@ export const Input = (props) => {
                 {props.label}
             </label>
             <input type = {inputType} id={htmlFor} value={props.value} onChange={props.onChange}/>
-            {isInvalid(props) ? <span style={{color: '#f0130'}}>{props.errorMessage || 'введите верное знач'}</span> : null}
+            {isInvalid(props) ? <span className="modal__error" style={{color: '#f0130'}}>{props.errorMessage || 'введите верное знач'}</span> : null}
         </div>
     )
 };

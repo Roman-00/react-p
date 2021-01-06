@@ -1,37 +1,49 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
 
-nav {
-    text-align: center;
-    min-height: 5vw;
-}
-
-ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-
-    min-height: 5vw;
-
-    margin: 0;
-    padding: 0;
+.navbar ul {
+    display: flex;
+    align-items: center;
 
     list-style: none;
 }
 
-ul li {
-    display: inline-block;
-    align-self: center;
-    
-    transition: all .2s ease-in;
+.navbar ul li {
+    margin-right: 40px;
+
+    list-style: none;
 }
 
-a {
-    font-family: 'Roboto', sans-serif;
-    font-size: 1vw;
+.navbar ul li:last-of-type {
+    margin-right: 0px;
+}
+
+.navbar ul li a {
+    display: flex;
+    align-items: center;
+
+    font-size: 16px;
+    font-weight: 700;
 
     text-decoration: none;
-    color: #223046;
+    color: #282B31;
 }
 
-a:hover {
-    color: black;
+.navbar ul li a img {
+    width: 18px;
+    height: 18px;
+
+    margin-bottom: 1px;
+    margin-right: 10px;
+}
+
+.navbar ul li a,
+.navbar ul li a img {
+    opacity: 0.6;
+
+    transition: .4s ease;
+}
+
+.navbar ul li a:hover,
+.navbar ul li a:hover img {
+    opacity: 1;
 }

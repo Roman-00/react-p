@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Lato&family=Roboto&display=swap');
 
 .header {
-    min-height: 5vw;
-}
+    padding: 14px 0px;
 
-.header hr {
-    border: 1px solid #223046;
+    background: #fff;
+    border-bottom: 2px solid #E0E0EC;
 }
 
 .header__wrap {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -19,11 +19,30 @@
     align-items: center;
 }
 
-.logo h2 {
-    font-family: 'Lato', sans-serif;
-    font-size: 1.6vw;
+.logo a {
+    display: flex;
+    align-items: center;
+}
 
-    color: #223046;
+.logo__svg {
+    display: block;
+}
+
+.logo__svg img {
+    height: 30px;
+    width: 30px;
+
+    background: #4447E2;
+    border-radius: 100px;
+}
+
+.logo h2 {
+    margin-left: 10px;
+    
+    font-family: 'Lato', sans-serif;
+    font-size: 18px;
+
+    color: #282B31;
     cursor: pointer;
 }
 
@@ -34,8 +53,20 @@
 }
 
 .person i {
-    font-size: 1.6vw;
+    font-size: 18px;
 
-    color: #223046;
+    color: #282B31;
+    cursor: pointer;
+}
+
+.person__text {
+    display: inline-block;
+
+    margin-left: 10px;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+
     cursor: pointer;
 }

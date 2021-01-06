@@ -1,19 +1,20 @@
 .exchange {
     min-height: 16vw;
-
-    padding: 1vw 0;
-
-    border: 1px solid #bfc4cd;
 }
 
 .exchange__container {
-    width: 90%;
+    width: 95%;
 
     margin: 0 auto;
+    margin-left: 0px;
+    margin-right: 0px;
 }
 
 .exchange__content ul {
-    display: block;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     
     margin: 0;
     padding: 0;
@@ -22,17 +23,68 @@
 }
 
 .exchange__content ul li {
-    display: block;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
-    margin: .5vw auto;
-    padding-left: 25%;
+    width: 290px;
+    min-height: 100px;
+
+    margin: 0 0 20px 0;
+    padding: 20px;
+
+    background: #fff;
+    box-shadow: 0px 25px 40px rgba(0, 0, 0, 0.03);
+    border-radius: 24px;
+
+    transition: 0.3s ease;
+
+    cursor: pointer;
+}
+
+.exchange__content ul li:hover {
+    box-shadow: none;
+}
+
+.exchange__span-block {
+    display: flex;
+    align-items: center;
     
-    border-bottom: 1px solid #bfc4cd;
+    margin-bottom: 20px;
 }
 
 .exchange__content ul li img {
-    width: 20px;
-    height: 15px;
+    width: 40px;
+    height: 35px;
+
+    margin-right: 10px;
+}
+
+.exchange__content-p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 40px;
+}
+
+.exchange__title-text,
+.exchange__title-date {
+    display: block;
+
+    font-family: 'Roboto', sans-serif;
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 20px;
+
+    color: #282B31;
+}
+
+.exchange__span-block {
+    font-weight: 700;
+    color: #4447e2;
+}
+
+.exchange__span-resault {
+    color: #707683;
 }

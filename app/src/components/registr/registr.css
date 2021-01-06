@@ -22,5 +22,23 @@
     justify-content: center;
     align-items: center;
 
-    margin: 3vw auto;
+    margin: 2vw auto;
+}
+
+.modal__btn button {
+    display: block;
+
+    min-height: 56px;
+    min-width: 324px;
+
+    background: linear-gradient(270deg, #8743FF 0%, #4136F1 100%);
+    box-shadow: 0px 15px 30px rgba(20, 102, 204, 0.16);
+    border-radius: 16px;
+
+    color: #fff;
+}
+
+.modal__btn button:hover {
+    box-shadow: none;
+    border-radius: 0px;
 }

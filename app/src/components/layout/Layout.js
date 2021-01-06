@@ -3,7 +3,7 @@ import {Route, Switch} from 'react-router-dom';
 import './layout.css';
 
 import { AddClass } from '../../hook/AddClass';
-import { Header } from '../header/Header';
+//import { Header } from '../header/Header';
 import { Home } from '../../pages/home/Home';
 import { SideBar } from '../sidebar/SideBar';
 
@@ -19,7 +19,6 @@ const Layout = () => {
 
     return(
         <>
-            <Header/>
             <div className="content">
                 <div className="routs">
                     { state.auth ? 

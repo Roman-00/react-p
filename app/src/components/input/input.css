@@ -7,14 +7,29 @@
 }
 
 .modal__input label {
-    font-family: 'Lato', sans-serif;
-    font-size: .7vw;
+    margin-bottom: 10px;
 
-    line-height: 1.5vw;
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+
+    color: #5F5F6E;
+    line-height: 20px;
 }
 
 .modal__input input {
-    height: 1.3vw;
+    height: 43px;
+
+    padding-left: 10px;
+
+    font-size: 14px;
+
+    background: #DDE1E8;
+    border-radius: 15px;
+
+    border: none;
+
+    outline: none;
 }
 
 .modal__input span {
@@ -26,4 +41,9 @@
 
 .input__invalid label {
     color: #f01f30;
+}
+
+.modal__error {
+    height: 20px;
+    padding: 10px 0px;
 }

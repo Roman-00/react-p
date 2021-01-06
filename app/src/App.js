@@ -15,6 +15,7 @@ import USD from './image/USD.png';
 import { Dark } from './components/dark/Dark';
 import { Modal } from './components/modal/Modal';
 import { Input } from './components/input/Input';
+import { Header } from './components/header/Header';
 
 function validateEmail(email) {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -358,6 +359,7 @@ class App extends React.Component {
                                       registerHandler: this.registerHandler}} >
         <Dark showModal = {this.state.showModal} modalHideHandler = {this.modalHideHandler}/>
         <Modal/>
+        <Header/>
         <Layout/>
       </RateContext.Provider>
     )
